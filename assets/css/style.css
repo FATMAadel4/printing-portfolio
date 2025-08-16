@@ -1,4 +1,4 @@
- :root {
+:root {
   --sidebar-width: 280px;
 }
 
@@ -120,9 +120,7 @@ a:hover { text-decoration: underline; }
 @media (max-width: 991.98px) {
   :root { --sidebar-width: 100%; }
   #sidebar { 
-    position: static; 
-    height: auto; 
-    border-inline-end: none;
+    display: none;
   }
   .ms-sidebar { margin-inline-start: 0; }
 }
@@ -132,9 +130,6 @@ a:hover { text-decoration: underline; }
 }
 
 @media (max-width: 576px) {
-  #sidebar { display: none; }
-  .ms-sidebar { margin-inline-start: 0; }
-
   .gallery-grid { grid-template-columns: 1fr; gap: 0.5rem; }
   .category i { font-size: 1.5rem; }
   .hero h1 { font-size: 1.5rem; }
@@ -150,4 +145,4 @@ a:hover { text-decoration: underline; }
 
 /* ===== RTL-specific ===== */
 html[dir="rtl"] #sidebar { right: 0; left: auto; }
-html[dir="rtl"] .ms-sidebar { margin-right: var(--sidebar-width); margin-left: 0; }
+html[dir="rtl"] .ms-sidebar { margin-right: var(--sidebar-width); margin-left: 0; } 
