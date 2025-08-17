@@ -4,6 +4,10 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Cairo', 'Poppins', system-ui, sans-serif;
   background-color: #121212;
@@ -18,19 +22,33 @@ body {
   position: fixed;
   top: 0;
   height: 100%;
+  display: none;
+  transition: left 0.3s, right 0.3s;
 }
 .ms-sidebar { margin-inline-start: var(--sidebar-width); }
 html[dir="rtl"] .ms-sidebar { margin-inline-start: 0; margin-inline-end: var(--sidebar-width); }
 
-/* ✅ إضافة إزاحة المحتوى */
+#sidebar ul { list-style: none; padding: 0; }
+#sidebar ul li { margin-bottom: 1rem; }
+#sidebar ul li a { color: #fff; text-decoration: none; }
+#sidebar ul li a:hover { color: #ffc107; }
+
+/* ===== Content ===== */
 #content {
-  margin-inline-start: var(--sidebar-width);
+  transition: margin 0.3s;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
 }
 html[dir="rtl"] #content {
   margin-inline-start: 0;
   margin-inline-end: var(--sidebar-width);
 }
+html[dir="ltr"] #content {
+  margin-inline-start: var(--sidebar-width);
+  margin-inline-end: 0;
+}
 
+/* ===== Brand & Links ===== */
 .brand { letter-spacing: .5px; }
 .nav-link:hover { background-color: rgba(255,255,255,.06); border-radius: .5rem; }
 
@@ -102,17 +120,25 @@ a:hover { text-decoration: underline; }
 
 /* ===== Language toggle ===== */
 .d-none { display: none !important; }
-
-/* ✅ زر الترجمة ثابت فوق */
 .lang-toggle {
   position: fixed;
   top: 1rem;
   right: 1rem;
   z-index: 1100;
 }
-[dir="rtl"] .lang-toggle {
-  left: 1rem;
-  right: auto;
+[dir="rtl"] .lang-toggle { left: 1rem; right: auto; }
+
+/* ===== Sidebar Desktop Display ===== */
+@media (min-width: 992px) {
+  #sidebar { display: block; }
+  #sidebar .lang-toggle {
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+    width: 100%;
+    margin-top: 1rem;
+  }
 }
 
 /* ===== Responsive ===== */
@@ -129,18 +155,15 @@ a:hover { text-decoration: underline; }
   right: 0;
   transform: translateX(100%);
 }
-[dir="rtl"] .offcanvas.show {
-  transform: translateX(0);
-}
+[dir="rtl"] .offcanvas.show { transform: translateX(0); }
 [dir="ltr"] .offcanvas {
   right: auto;
   left: 0;
   transform: translateX(-100%);
 }
-[dir="ltr"] .offcanvas.show {
-  transform: translateX(0);
-}
+[dir="ltr"] .offcanvas.show { transform: translateX(0); }
 
+/* ===== Responsive Gallery & Sections ===== */
 @media (max-width: 768px) { 
   .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); } 
 }
