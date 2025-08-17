@@ -76,11 +76,33 @@
   renderGallery("pens-gallery", "pens", 2);
   renderGallery("glass-gallery", "glass", 16);
 
-  // ===== Close mobile sidebar after clicking a link =====
+  // ===== Smooth scroll for all links =====
+  function smoothScroll(targetId) {
+    const target = document.getElementById(targetId);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  // ===== Mobile sidebar links =====
   document.querySelectorAll('#mobile-sidebar .nav-link').forEach(link => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', e => {
+      e.preventDefault(); // Prevent default jump
+      const href = link.getAttribute('href').replace('#', '');
       const sidebar = bootstrap.Offcanvas.getInstance(document.getElementById('mobile-sidebar'));
       if (sidebar) sidebar.hide();
+
+      // Scroll after sidebar is hidden
+      setTimeout(() => smoothScroll(href), 300); // Delay matches offcanvas hide animation
+    });
+  });
+
+  // ===== Desktop sidebar links =====
+  document.querySelectorAll('#sidebar .nav-link').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const href = link.getAttribute('href').replace('#', '');
+      smoothScroll(href);
     });
   });
 
